@@ -5,8 +5,10 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,25 +29,10 @@ public class GetSpeech {
     private String textfile_title;
     private String speechdate;
     private String texttext;
-    public GetSpeech(int arg) throws IOException {
+    private File mp3;
+    public GetSpeech(int arg, boolean openTXT, boolean openHTML, boolean downloadMP3) throws IOException {
         DateTriplet[] all = DATES.d;
         DateTriplet q = all[arg];
-//        DateGenerator dateGenerator = new DateGenerator();
-//        DateTriplet[] all = DATES.d;
-//        DateTriplet q = all[PAST.length];
-//        PAST.length++;
-//        FileWriter updateLength = new FileWriter(files.PAST);
-//        Scanner scanner = new Scanner(files.PAST);
-//        StringBuilder contents = new StringBuilder();
-//        while (scanner.hasNextLine()){
-//            String nextLine = scanner.nextLine();
-//            contents.append(nextLine);
-//        }
-//        String s = contents.toString();
-//        s = s.replaceAll("[0-9]", String.valueOf(PAST.length));
-//
-//        updateLength.write(s);
-//        updateLength.close();
         String sought = q.getValue();
         for (int i = 1; i < 44; i++) {
             String testURL = metabase+i;
@@ -71,28 +58,6 @@ public class GetSpeech {
                 break;
             }
         }
-//        for (int i = 0; i < numpage.children().size(); i++) {
-//            div1 = numpage.children().get(i);
-////            System.out.println(div1.html());
-//            if (div1.className().contains("views-row views-row")){
-//                System.out.println(div1.html());
-//                for (int j = 0; j < div1.children().size(); j++) {
-//                    org.jsoup.nodes.Element child = div1.children().get(j);
-//                    if (child.className().contains("views-field views-field-created")){
-//                        if (child.children().get(0).tagName().equals("span") && child.children().get(0).className().equals("field-content")){
-//                            if (child.children().get(0).html().equalsIgnoreCase(sought)){
-//                                    //speechpage_url = numpage.children().get(i).children().get(j).children().get(1).children().get(0).children().get(0).attr("href");
-//                                    speechpage_url = child.children().get(1).children().get(0).children().get(0).attr("href");
-//                                speechpage_title = child.children().get(1).children().get(0).children().get(0).html();
-//                                Break = true;
-//                                break;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            if (Break) {break;}
-//        }
         System.out.println(speechpage_url);
         speechpage = org.jsoup.Jsoup.connect(speechpage_url).get();
 
@@ -104,10 +69,16 @@ public class GetSpeech {
         }
         texttext = tt.toString();
         System.out.println(texttext);
+        org.jsoup.select.Elements mp3elements = speechpage.getElementsByAttributeValueContaining("class", "link-weekly-address link-mp3");
+        mp3_url = mp3elements.get(0).attr("href");
         String examplepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/2009:9:19 wa.txt";
-        String textfilepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/"+q.getlogicaldate().getY()+":"+q.getlogicaldate().getM()+":"+q.getlogicaldate().getD()+"\s"+speechpage_title;
-        Path path = Path.of(textfilepath);
+        String examplemp3path = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/2009:9:19 wa.txt";
+        String specifics = q.getlogicaldate().getY()+":"+q.getlogicaldate().getM()+":"+q.getlogicaldate().getD()+"\s"+speechpage_title;
+        String textfilepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/"+specifics;
+        String mp3filepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/Audio/"+specifics;
 
+        Path path = Path.of(textfilepath);
+        Path mp3path = Path.of(mp3filepath);
         textfile = path.toFile();
         textfile.delete();
         if (!textfile.exists()){
@@ -121,10 +92,27 @@ public class GetSpeech {
         PrintStream textfile_ps = new PrintStream(textfile);
         System.setOut(textfile_ps);;
         System.out.println(texttext);
+        textfile_ps.close();
         System.setOut(System.out);
+        System.out.println("0");
         Desktop desktop = Desktop.getDesktop();
-        desktop.browse(URI.create(speechpage_url));
-        if(textfile.exists()) {desktop.open(textfile);}
+        if (openHTML) {desktop.browse(URI.create(speechpage_url));}
+        if (openTXT) {if (textfile.exists()) {desktop.open(textfile);}}
+//        System.out.println("1");
+        mp3 = mp3path.toFile();
+        if (downloadMP3) {
+//        InputStream in = new URL(mp3_url).openStream();
+//        Files.copy(in, mp3path, StandardCopyOption.REPLACE_EXISTING);
+            URLConnection conn = new URL(mp3_url).openConnection();
+            InputStream is = conn.getInputStream();
 
-}
+            OutputStream outstream = new FileOutputStream(mp3);
+            byte[] buffer = new byte[4096];
+            int len;
+            while ((len = is.read(buffer)) > 0) {
+                outstream.write(buffer, 0, len);
+            }
+            outstream.close();
+        }
+    }
 }

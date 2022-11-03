@@ -7,9 +7,9 @@ public class Main {
 //        org.jsoup.nodes.Document document = org.jsoup.Jsoup.connect(testURL).get();
 //        String html = document.html();
 //        System.out.println(html);
-        int[] arguments = new int[]{34};
+        int[] arguments = new int[]{52};
         for (int arg:arguments){
-            new GetSpeech(arg);
+            new GetSpeech(arg, true, true, true);
         }
     }
 }
