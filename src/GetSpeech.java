@@ -81,10 +81,10 @@ public class GetSpeech {
             org.jsoup.select.Elements mp3elements = speechpage.getElementsByAttributeValueContaining("class", "link-weekly-address link-mp3");
             mp3_url = mp3elements.get(0).attr("href");
             String examplepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/2009:9:19 wa.txt";
-            String examplemp3path = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/2009:9:19 wa.txt";
+            String examplemp3path = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/2009:9:19 wa.mp3";
             String specifics = q.getlogicaldate().getY() + ":" + q.getlogicaldate().getM() + ":" + q.getlogicaldate().getD() + "\s" + speechpage_title;
             String textfilepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/" + specifics;
-            String mp3filepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/Audio/" + specifics;
+            String mp3filepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/Audio/" + specifics+".mp3";
 
             Path path = Path.of(textfilepath);
             Path mp3path = Path.of(mp3filepath);

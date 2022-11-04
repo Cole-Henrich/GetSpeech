@@ -11,7 +11,7 @@ public class Main {
         }
     }
     private static void downloadMP3s() throws IOException {
-        for (int arg = 0; arg < 450; arg++){
+        for (int arg = 0; arg < 431; arg++){
             new GetSpeech(arg, false, false, true);
         }
     }
