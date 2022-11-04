@@ -36,11 +36,11 @@ public class GetSpeech {
         DateTriplet q = all[arg];
         String sought = q.getValue();
         for (int i = 1; i < 44; i++) {
-            String testURL = metabase+i;
+            String testURL = metabase + i;
             org.jsoup.nodes.Document document = org.jsoup.Jsoup.connect(testURL).get();
             String html = document.html();
 //            System.out.println(html);
-            if (html.contains(sought) || html.contains(sought.strip()) || html.contains(sought.toLowerCase()) || html.contains(sought.toUpperCase())){
+            if (html.contains(sought) || html.contains(sought.strip()) || html.contains(sought.toLowerCase()) || html.contains(sought.toUpperCase())) {
                 numpage_url = testURL;
                 System.out.println(numpage_url);
                 break;
@@ -49,8 +49,7 @@ public class GetSpeech {
         boolean connected = true;
         try {
             numpage = org.jsoup.Jsoup.connect(numpage_url).get();
-        }
-        catch (ValidationException validationException){
+        } catch (ValidationException validationException) {
             connected = false;
             validationException.printStackTrace();
         }
@@ -79,55 +78,57 @@ public class GetSpeech {
             texttext = tt.toString();
             System.out.println(texttext);
             org.jsoup.select.Elements mp3elements = speechpage.getElementsByAttributeValueContaining("class", "link-weekly-address link-mp3");
-            mp3_url = mp3elements.get(0).attr("href");
-            String examplepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/2009:9:19 wa.txt";
-            String examplemp3path = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/2009:9:19 wa.mp3";
-            String specifics = q.getlogicaldate().getY() + ":" + q.getlogicaldate().getM() + ":" + q.getlogicaldate().getD() + "\s" + speechpage_title;
-            String textfilepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/" + specifics;
-            String mp3filepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/Audio/" + specifics+".mp3";
+            if (!mp3elements.isEmpty()) {
+                mp3_url = mp3elements.get(0).attr("href");
+                String examplepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/2009:9:19 wa.txt";
+                String examplemp3path = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/2009:9:19 wa.mp3";
+                String specifics = q.getlogicaldate().getY() + ":" + q.getlogicaldate().getM() + ":" + q.getlogicaldate().getD() + "\s" + speechpage_title;
+                String textfilepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/" + specifics;
+                String mp3filepath = "/Users/colehenrich/Desktop/Barack-Obama-Speeches/Audio/" + specifics + ".mp3";
 
-            Path path = Path.of(textfilepath);
-            Path mp3path = Path.of(mp3filepath);
-            textfile = path.toFile();
-            textfile.delete();
-            if (!textfile.exists()) {
-                textfile = Files.createFile(path).toFile();
-            }
-            textfile.setWritable(true);
-            FileWriter finalWriter = new FileWriter(textfile);
-            finalWriter.flush();
-            finalWriter.write("");
-            finalWriter.close();
-            PrintStream textfile_ps = new PrintStream(textfile);
-            System.setOut(textfile_ps);
-            System.out.println(texttext);
-            textfile_ps.close();
-            System.setOut(System.out);
-            System.out.println("0");
-            Desktop desktop = Desktop.getDesktop();
-            if (openHTML) {
-                desktop.browse(URI.create(speechpage_url));
-            }
-            if (openTXT) {
-                if (textfile.exists()) {
-                    desktop.open(textfile);
+                Path path = Path.of(textfilepath);
+                Path mp3path = Path.of(mp3filepath);
+                textfile = path.toFile();
+                textfile.delete();
+                if (!textfile.exists()) {
+                    textfile = Files.createFile(path).toFile();
                 }
-            }
+                textfile.setWritable(true);
+                FileWriter finalWriter = new FileWriter(textfile);
+                finalWriter.flush();
+                finalWriter.write("");
+                finalWriter.close();
+                PrintStream textfile_ps = new PrintStream(textfile);
+                System.setOut(textfile_ps);
+                System.out.println(texttext);
+                textfile_ps.close();
+                System.setOut(System.out);
+                System.out.println("0");
+                Desktop desktop = Desktop.getDesktop();
+                if (openHTML) {
+                    desktop.browse(URI.create(speechpage_url));
+                }
+                if (openTXT) {
+                    if (textfile.exists()) {
+                        desktop.open(textfile);
+                    }
+                }
 //        System.out.println("1");
-            mp3 = mp3path.toFile();
-            if (downloadMP3) {
+                mp3 = mp3path.toFile();
+                if (downloadMP3) {
 //        InputStream in = new URL(mp3_url).openStream();
 //        Files.copy(in, mp3path, StandardCopyOption.REPLACE_EXISTING);
-                URLConnection conn = new URL(mp3_url).openConnection();
-                InputStream is = conn.getInputStream();
+                    URLConnection conn = new URL(mp3_url).openConnection();
+                    InputStream is = conn.getInputStream();
 
-                OutputStream outstream = new FileOutputStream(mp3);
-                byte[] buffer = new byte[4096];
-                int len;
-                while ((len = is.read(buffer)) > 0) {
-                    outstream.write(buffer, 0, len);
+                    OutputStream outstream = new FileOutputStream(mp3);
+                    byte[] buffer = new byte[4096];
+                    int len;
+                    while ((len = is.read(buffer)) > 0) {
+                        outstream.write(buffer, 0, len);
+                    }
+                    outstream.close();
                 }
-                outstream.close();
             }
         }
     }
