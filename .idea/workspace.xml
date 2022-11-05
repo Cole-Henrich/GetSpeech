@@ -4,14 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76c0dbe8-026a-4f81-a659-30c3a3932b32" name="Changes" comment="GetSpeech.java now specifies .mp3 as the file ending for mp3 file downloads">
+    <list default="true" id="76c0dbe8-026a-4f81-a659-30c3a3932b32" name="Changes" comment="The project has now successfully downloaded 1.97 Gigabytes of weekly addresses, assumed quantity = 431.">
+      <change afterPath="$PROJECT_DIR$/src/GetAR.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GetSpeech.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GetSpeech.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LogicalDate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LogicalDate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -25,16 +36,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.4643678",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4643678&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="DateGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DateGenerator" />
@@ -94,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667539601684</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="The project has now successfully downloaded 1.97 Gigabytes of weekly addresses, assumed quantity = 431.">
+      <created>1667575444765</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1667575444765</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -113,6 +131,7 @@
     <MESSAGE value="Supports MP3 Downloading" />
     <MESSAGE value="Amended DateGenerator.java so that no Saturdays are lost as was previously the case. This will increase the # of speeches downloaded by about 50% (from about 60% to 100% of speeches downloaded)." />
     <MESSAGE value="GetSpeech.java now specifies .mp3 as the file ending for mp3 file downloads" />
-    <option name="LAST_COMMIT_MESSAGE" value="GetSpeech.java now specifies .mp3 as the file ending for mp3 file downloads" />
+    <MESSAGE value="The project has now successfully downloaded 1.97 Gigabytes of weekly addresses, assumed quantity = 431." />
+    <option name="LAST_COMMIT_MESSAGE" value="The project has now successfully downloaded 1.97 Gigabytes of weekly addresses, assumed quantity = 431." />
   </component>
 </project>
